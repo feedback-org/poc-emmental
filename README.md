@@ -22,5 +22,8 @@ In the end, one Api is ready to be used and some managed scripts can be written 
   6. `./poc python` helps to go inside an api python process and `from models.user import User;User.query.all()` returns the same user object through a sqlalchemy instance.
 
 <p align="center">
-![Alt Text](https://github.com/feedback-news/poc-emmental/blob/poc-docker/images/poc-docker.gif)
+  <img
+    alt="Demo of what to expect with poc-docker"
+    href="https://github.com/feedback-news/poc-emmental/blob/poc-docker/images/poc-docker.gif"
+  />
 </p>
