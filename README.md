@@ -24,6 +24,6 @@ In the end, one Api is ready to be used and some managed scripts can be written 
 <p align="center">
   <img
     alt="Demo of what to expect with poc-docker"
-    href="https://github.com/feedback-news/poc-emmental/blob/poc-docker/images/poc-docker.gif"
+    src="https://github.com/feedback-news/poc-emmental/blob/poc-docker/images/poc-docker.gif"
   />
 </p>
