@@ -1,70 +1,57 @@
 # poc-emmental
 
-Welcome to the Feedback News challenge !
+Why emmental ? Take a quick look in the code, there are some `*TBW*` holes in the scripts... This is where critical code needs `To Be Written` to make the application working.
 
-Here is a briefing of tasks (divided into five milestone) in order to release
-one small deliverable fact-checks exploration website.
 
-Typical duration for the exercise would be ten days of work for a beginner developer
-using Docker, Postgres, Python, Flask, Redux, React. In the end, the challenger needs to share to the Feedback News team one git repository with some README and code to be tested.
+## Task 2 : poc-data
 
-## Features to develop
+Let's import real data into the project. Starting from the code written in task 1, you need essentially to go to the api/models folders in order to define the science feedback ORM (See schemas below): Appearance, Claim, Content, Verdict... Before anything, you need first to ask for the .env secret file to put at the top of your repository. This will give you credentials to make your sandbox script allowed to pull science feedback entities from airtable. The task is achieved once you have a /verdicts API with opportunities to explore the dataset thanks to keywords:
 
-The application must provide:
+  1. `./poc start` making the docker containers run and the Flask Api to be available at localhost:80,
 
-- i) a Flask API `http://localhost:80/reviews` that returns existing reviews in the database as JSON format,
+  2. `./poc sandbox` making the app write import airtable science feedback entities,
 
-- ii) a website welcome/search page allowing users to search the reviews by keywords on `http://localhost:3000`:
+  4. again, `curl localhost:80/verdicts\?keywords=covid` returns filtered verdicts with claims related to this specified keywords.
+
 <p align="center">
-  <kbd>
-    <img
-      alt="reviews"
-      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/master/images/reviews.png"
-    />
-  </kbd>
+  <img
+    alt="Demo of what to expect with poc-docker"
+    src="https://github.com/feedback-news/poc-emmental/blob/poc-data/images/poc-data.gif"
+  />
 </p>
 
-- iii) a website result page showing all the reviews containing the keyword in their titles: `http://localhost:3000?keywords=<keywords>`:  
-<p align="center">
-  <kbd>
-    <img
-      alt="reviews with keywords"
-      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/master/images/reviews_with_keywords.png"
-    />
-  </kbd>
-</p>
 
-- iv) finally, a website page template for each review `http://localhost:3000/reviews/<reviewId>` listing all the instances repeating the claim or content, and all the social media accounts having spread it:
-<p align="center">
-  <kbd>
-    <img
-      alt="review"
-      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/master/images/review.png"
-    />
-  </kbd>
-</p>
+## Object Relational Mapping
 
-- v) i there is still time, the application should possibly allow a form for the user to add an other appearance for one specific review, and add this appearance in the postgres database:
+All starts with Claim and Content: a claim is a piece of text saying something, and a content is for example an article on internet using this claim to justify its opinion. Appearance is the joining model helping for a user to testify that he saw a claim (or a content)
+being quoted by another content :
 <p align="center">
   <kbd>
     <img
-      alt="review with appearance"
-      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/master/images/review_with_appearance.png"
+      alt="orm claim and content"
+      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/poc-data/images/ontology_1.png"
     />
   </kbd>
 </p>
 
 
-## Tech tasks
+The core of the Feedback News is based on the Review/Verdict models. A review is a comment and an evaluation made over a claim (or a content) by a specific user in the platform, a reviewer, ie a scientific for whom peer publishing qualification was already proven in the past. On the top of that, a verdict is an aggregation of several reviews made on a same content or claim and repackaged as a one-single summary by an editor. In the end some tags are associated with the verdict to qualify the evaluated claim or content : 
+<p align="center">
+  <kbd>
+    <img
+      alt="orm review and verdict"
+      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/poc-data/images/ontology_2.png"
+    />
+  </kbd>
+</p>
 
-The challenge is split into five steps, each of these has its own branch on this repository for further explanation :
 
-  1. [poc-docker](https://github.com/feedback-news/poc-emmental/tree/poc-docker): the task is to build a docker postgres flask environment to setup all the application,
-
-  2. [poc-data](https://github.com/feedback-news/poc-emmental/tree/poc-data): once the stack is up, the database needs to be feed with real data, and all is reachable via the `/reviews` rest api,
-
-  3. [poc-react](https://github.com/feedback-news/poc-emmental/tree/poc-react): next step consists in installing a front react redux boilerplate to display roughly these review items fetched via api,
-
-  4. [poc-reviews](https://github.com/feedback-news/poc-emmental/tree/poc-reviews): this is the core task dedicated to implement the features ii), iii) iv), <i>ie</i> the website main user story,
-
-  5. [poc-form](https://github.com/feedback-news/poc-emmental/tree/poc-form): an extra task to achieve the v) feature.
+Finally the knowledge graph of Feedback News is completed with satellite entities helping us to make connections between communities of contents and claims. In this approach, a content is possibly attached to a medium, ie a platform publishing this content and possibly other contents, and this medium itself can be owned by an organization:
+<p align="center">
+  <kbd>
+    <img
+      alt="orm medium and organization"
+      src="https://raw.githubusercontent.com/feedback-news/poc-emmental/poc-data/images/ontology_3.png"
+    />
+  </kbd>
+</p>
