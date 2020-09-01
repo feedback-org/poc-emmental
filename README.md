@@ -2,7 +2,7 @@
 
 Welcome to the Feedback News challenge !
 
-Here is a briefing of tasks (divided into five milestone) in order to release
+Here is a briefing of tasks (divided into five milestones) in order to release
 one small deliverable fact-checks exploration website.
 
 Typical duration for the exercise would be ten days of work for a beginner developer
