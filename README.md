@@ -44,7 +44,7 @@ The application must provide:
   </kbd>
 </p>
 
-- v) i there is still time, the application should possibly allow a form for the user to add an other appearance for one specific review, and add this appearance in the postgres database:
+- v) if there is still time, the application should possibly allow a form for the user to add an other appearance for one specific review, and add this appearance in the postgres database:
 <p align="center">
   <kbd>
     <img
